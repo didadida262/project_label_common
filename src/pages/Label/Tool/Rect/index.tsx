@@ -4,11 +4,12 @@ import React, { useRef, useEffect, useContext } from "react";
 import { BsTextareaResize } from "react-icons/bs";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-import { judeToolExisted } from "@/utils/paperjsWeapon";
 import { ColorContext } from "@/pages/Label/ColorProvider";
 import pattern from "@/styles/pattern";
+import {drawXY,removeLayer} from '@/utils/paperjsWeapon'
 
 import "./index.scss";
+import { current } from "@reduxjs/toolkit";
 
 const RectComponent = props => {
   const { activeTool, onClick, submitPath } = props;
@@ -37,7 +38,11 @@ const RectComponent = props => {
         first = e.point;
       };
       tool.onMouseDrag = e => {
+        const currentProject = paper.project
+
         removeSelection();
+        removeLayer(currentProject, 'layerXY' )
+
         const width = e.point.x - first.x;
         const height = e.point.y - first.y;
         path = new paper.Path.Rectangle(
@@ -46,7 +51,11 @@ const RectComponent = props => {
         );
         path.strokeColor = color;
       };
-      tool.onMouseMove = e => {};
+      tool.onMouseMove = e => {
+        const currentProject = paper.project
+        removeLayer(currentProject, 'layerXY' )
+        drawXY(paper.project, e.point)
+      };
       tool.onMouseUp = e => {
         path.add(e.point);
         submitPath(path.clone());

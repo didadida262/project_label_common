@@ -1,17 +1,10 @@
-/*
- * @Description: 
- * @Author: didadida262
- * @Date: 2024-07-31 10:32:27
- * @LastEditors: didadida262
- * @LastEditTime: 2025-01-16 23:39:27
- */
+
 import { Button } from "antd";
 import paper from "paper";
 import React, { useRef, useEffect, useContext } from "react";
 import { BsPencil } from "react-icons/bs";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-import { judeToolExisted } from "@/utils/paperjsWeapon";
 import { ColorContext } from "@/pages/Label/ColorProvider";
 import pattern from "@/styles/pattern";
 

@@ -11,7 +11,6 @@ import React, { useRef, useEffect, useContext } from "react";
 import { BsBrush } from "react-icons/bs";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-import { judeToolExisted } from "@/utils/paperjsWeapon";
 import { ColorContext } from "@/pages/Label/ColorProvider";
 import pattern from "@/styles/pattern";
 

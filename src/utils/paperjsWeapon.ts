@@ -2,38 +2,39 @@
 
 import paper from "paper";
 
-// tools相关
+// 判断一个点是否在path范围内
 
-// 判断当前tool是否已存在
-export const judeToolExisted = (paper, name) => {
-  const tools: Array<any> = paper.tools;
-  const existedCurretnTool = tools.filter(item => item.name === name)[0];
-  if (existedCurretnTool) {
-    existedCurretnTool.activate();
-    return true;
-  }
-  return false;
-};
+export const getRandomColor = () => {
+  // rgba(x,y,z,透明度)
+  const r = Math.floor(Math.random() * 256)
+  const g = Math.floor(Math.random() * 256)
+  const b = Math.floor(Math.random() * 256)
+  const t = Math.random().toFixed(1)
+  return `rgba(${r}, ${g}, ${b}, ${t})`
+}
 
 // 以左上角为视图原点， 获取试图范围内的随机点
-export const randomPoint = (WIDTH, HEIGHT) => {
+  
+  export const randomPoint = (currentProject: paper.Project) => {
+  const WIDTH = currentProject.view.bounds.width;
+  const HEIGHT = currentProject.view.bounds.height;
   return new paper.Point(WIDTH * Math.random(), HEIGHT * Math.random());
 };
-
-export const getRandomDirection = (position: paper.Point, range: number) => {
-  const newX = position.x - range / 2 + range;
-  const newY = position.y - range / 2 + range;
-  const newPoint = new paper.Point(newX, newY);
-  return newPoint;
+// 获取视图级别的字体大小
+export const getViewFontSize = (currentProject: paper.Project) => {
+  const ratio = currentProject.view.zoom;
+  return 16 / ratio;
 };
-
+// 获取视图级别的线大小
+export const getViewBorderSize = (currentProject: paper.Project) => {
+  const ratio = currentProject.view.zoom;
+  return 1 / ratio;
+};
 // 删除指定project的某一层
 export const removeLayer = (
   currentProject: paper.Project,
   layerName: String
 ) => {
-  console.log("removeLayer--currentProject", currentProject);
-
   let target = currentProject.layers.filter(
     layer => layer.name === layerName
   )[0] as paper.Layer;
@@ -41,51 +42,120 @@ export const removeLayer = (
     target.remove();
   }
 };
-// // 指定项目绘制坐标层次
-export const drawXY = (currentProject: paper.Project) => {
+
+// 指定项目绘制坐标层-鼠标移动版本
+export const drawXY = (currentProject: paper.Project,center: paper.Point) => {
   console.log("drawXY>>>");
   if (!currentProject) {
-    // throw "project null"
     return;
   }
   const WIDTH = currentProject.view.bounds.width;
   const HEIGHT = currentProject.view.bounds.height;
+  console.log('WIDTH>>>', WIDTH)
+  console.log('HEIGHT>>>', HEIGHT)
   currentProject.activate();
   removeLayer(currentProject, "layerXY");
   const layerXY = new paper.Layer();
   layerXY.name = "layerXY";
-  const currentCenter = currentProject.view.center;
   new paper.Path.Line({
-    from: new paper.Point(currentCenter.x - WIDTH / 2, currentCenter.y),
-    to: new paper.Point(currentCenter.x + WIDTH / 2, currentCenter.y),
-    strokeColor: "red",
+    from: new paper.Point(0, center.y),
+    to: new paper.Point(WIDTH, center.y),
+    strokeColor: "#00ff1e",
     strokeWidth: getViewBorderSize(currentProject)
   });
   new paper.Path.Line({
-    from: new paper.Point(currentCenter.x, currentCenter.y - HEIGHT / 2),
-    to: new paper.Point(currentCenter.x, currentCenter.y + HEIGHT / 2),
-    strokeColor: "red",
+    from: new paper.Point(center.x, 0),
+    to: new paper.Point(center.x, HEIGHT),
+    strokeColor: "#00ff1e",
     strokeWidth: getViewBorderSize(currentProject)
   });
   new paper.PointText({
-    point: currentCenter.add(2),
-    content: `(${currentCenter.x.toFixed(2)} , ${currentCenter.y.toFixed(2)})`,
-    fillColor: "red",
+    point: center.add(new paper.Point(5, -5)),
+    content: `(${center.x.toFixed(2)} , ${center.y.toFixed(2)})`,
+    fillColor: "#00ff1e",
     justification: "left",
     fontWeight: "bold",
     fontSize: getViewFontSize(currentProject)
   });
 };
-// 获取视图级别的字体大小
-export const getViewFontSize = (currentProject: paper.Project) => {
-  const ratio = currentProject.view.zoom;
-  return 16 / ratio;
+// 指定项目绘制坐标层-鼠标移动版本
+export const drawXYSniper = (currentProject: paper.Project,center: paper.Point) => {
+  if (!currentProject) {
+    return;
+  }
+  const WIDTH = currentProject.view.bounds.width;
+  const HEIGHT = currentProject.view.bounds.height;
+  console.log('WIDTH>>>', WIDTH)
+  console.log('HEIGHT>>>', HEIGHT)
+  currentProject.activate();
+  removeLayer(currentProject, "layerXY");
+  const layerXY = new paper.Layer();
+  layerXY.name = "layerXY";
+  new paper.Path.Line({
+    from: new paper.Point(0, center.y),
+    to: new paper.Point(WIDTH, center.y),
+    strokeColor: "white",
+    strokeWidth: getViewBorderSize(currentProject)
+  });
+  new paper.Group({
+    children: [
+      new paper.Path.Line({
+        from: new paper.Point(center.x, 0),
+        to: new paper.Point(center.x, HEIGHT),
+        strokeColor: "white",
+        strokeWidth: getViewBorderSize(currentProject)
+      }),
+      new paper.PointText({
+        point: center.add(new paper.Point(5, -5)),
+        content: `(${center.x.toFixed(2)} , ${center.y.toFixed(2)})`,
+        fillColor: "white",
+        justification: "left",
+        fontWeight: "bold",
+        fontSize: getViewFontSize(currentProject)
+      }),
+      new paper.Path.Circle({
+        center: center,
+        radius: 200,
+        strokeColor: 'red',
+        strokeWidth: getViewBorderSize(currentProject)
+      })
+    ]
+  })
+
 };
-//     // 获取视图级别的线大小
-export const getViewBorderSize = (currentProject: paper.Project) => {
-  const ratio = currentProject.view.zoom;
-  return 1 / ratio;
+export const showPoint = (point:paper.Point, color:paper.Color | null) => {
+  new paper.Path.Circle({
+    center: point,
+    radius: 8,
+    fillColor: color
+  });
 };
+
+// tools相关
+
+// 判断当前tool是否已存在
+// export const judeToolExisted = (paper, name) => {
+//   const tools: Array<any> = paper.tools;
+//   const existedCurretnTool = tools.filter(item => item.name === name)[0];
+//   if (existedCurretnTool) {
+//     existedCurretnTool.activate();
+//     return true;
+//   }
+//   return false;
+// };
+
+
+
+// export const getRandomDirection = (position: paper.Point, range: number) => {
+//   const newX = position.x - range / 2 + range;
+//   const newY = position.y - range / 2 + range;
+//   const newPoint = new paper.Point(newX, newY);
+//   return newPoint;
+// };
+
+
+
+
 // // 中心点在坐标原点的圆，给定一个坐标值及radius，返回另一坐标值
 // export const getAnotherPoint = (val, radius) => {
 //     return Math.sqrt(Math.pow(radius, 2) - Math.pow(Math.abs(val), 2))
@@ -223,11 +293,3 @@ export const getViewBorderSize = (currentProject: paper.Project) => {
 //   c1.remove()
 //   c2.remove()
 // }
-
-export const showPoint = (point, color) => {
-  const p = new paper.Path.Circle({
-    center: point,
-    radius: 8,
-    fillColor: color
-  });
-};

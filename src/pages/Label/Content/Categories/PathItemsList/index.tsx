@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-import "./index.scss";
+import { cn } from "@/utils/cn";
 
 interface IProps {
   categories: any
@@ -13,10 +13,12 @@ const PathItemsList = (props: IProps) => {
   };
   useEffect(() => {}, [categories]);
   return (
-    <div className="PathItemsList">
+    <div className={cn(
+      "flex flex-col gap-y-[8px]"
+    )}>
       {categories.map((item, index) => {
         return (
-          <div className="w-full mb-[5px] rounded-[0px]" key={index}>
+          <div className="w-full rounded-[0px]" key={index}>
             <ButtonCommon
               type={EButtonType.SIMPLE}
               className="w-full"

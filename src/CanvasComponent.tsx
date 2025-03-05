@@ -55,7 +55,6 @@ export default class CanvasComponent extends React.Component {
     removeLayer(this.project, "layerXY");
   }
   onMouseUp(event: paper.MouseEvent): void {
-    drawXY(this.project);
   }
   onMouseDrag(event: paper.MouseEvent): void {}
   onMouseMove(event: paper.MouseEvent): void {}
@@ -65,7 +64,6 @@ export default class CanvasComponent extends React.Component {
     console.log("componentDidMount>>>>>>>>>");
     this.initCanvas();
     this.draw();
-    drawXY(this.project);
     this.num = 1;
   }
   render() {

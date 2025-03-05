@@ -7,7 +7,6 @@ import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 import { getRandomColor } from "@/utils/common_weapons";
 
 import pattern from "../../../styles/pattern";
-import { judeToolExisted } from "../../../utils/paperjsWeapon";
 
 import "./index.scss";
 
@@ -58,9 +57,6 @@ const Spray = props => {
   };
   const switchTool = () => {
     if (activeTool !== name) return;
-    if (!judeToolExisted(paper, name)) {
-      initTool();
-    }
   };
 
   useEffect(() => {

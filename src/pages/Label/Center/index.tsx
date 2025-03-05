@@ -13,7 +13,6 @@ import { BsTextCenter } from "react-icons/bs";
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 
 import pattern from "../../../styles/pattern";
-import { judeToolExisted } from "../../../utils/paperjsWeapon";
 
 import "./index.scss";
 

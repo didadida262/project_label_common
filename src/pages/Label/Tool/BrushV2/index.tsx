@@ -4,8 +4,6 @@ import React, { useRef, useEffect, useState, useContext } from "react";
 import { BsBrushFill } from "react-icons/bs";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-import { getRandomColor } from "@/utils/common_weapons";
-import { judeToolExisted } from "@/utils/paperjsWeapon";
 import { ColorContext } from "@/pages/Label/ColorProvider";
 import pattern from "@/styles/pattern";
 

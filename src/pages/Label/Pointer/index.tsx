@@ -13,7 +13,6 @@ import { BsCursor } from "react-icons/bs";
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 
 import pattern from "../../../styles/pattern";
-import { judeToolExisted } from "../../../utils/paperjsWeapon";
 
 import "./index.scss";
 
@@ -108,9 +107,7 @@ const pointerComponent = props => {
   };
   const switchTool = () => {
     if (activeTool !== name) return;
-    if (!judeToolExisted(paper, name)) {
-      initTool();
-    }
+
   };
   useEffect(() => {
     return () => {};
