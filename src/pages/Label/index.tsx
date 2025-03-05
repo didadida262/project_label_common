@@ -27,7 +27,7 @@ import testimg4 from '@/assets/images/common/test4.jpg'
 
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("pencil");
-  const [currentPic, setcurrentPic] = useState();
+  const [currentPic, setcurrentPic] = useState() as any;
   const [categories, setcategories] = useState([]) as any;
   const [currentPath, setcurrentPath] = useState(null) as any;
   const { color, setColor } = useContext(ColorContext);
@@ -99,6 +99,7 @@ const LabelComponent = () => {
 
       ]
       setdatalist(mockdata)
+      setcurrentPic(mockdata[0])
   }
   useEffect(() => {
       getData()
@@ -162,7 +163,7 @@ const LabelComponent = () => {
             "overflow-y-scroll"
           )
         }>
-          <PictureList datalist={datalist} setcurrentPic={setcurrentPic}/>
+          <PictureList datalist={datalist} setcurrentPic={setcurrentPic} currentPic={currentPic}/>
         </div>
         <div className={cn("h-full max-w-[calc(100%_-_490px)] rounded-[4px] border-[1px] border-solid border-borderSecondColor")}>
           <DrawComponent activeTool={activeTool} currentPic={currentPic}/>

@@ -1,14 +1,16 @@
 import { cn } from "@/utils/cn";
+import { useEffect } from "react";
 
 interface IProps {
     datalist: any;
+    currentPic: any;
     setcurrentPic: (data) => void
 }
 export default function PictureList (props:IProps) {
-    const {datalist, setcurrentPic} =  props
-
-
-
+    const {datalist, currentPic, setcurrentPic} =  props
+    useEffect(() => {
+        console.log('currentPic>>>', currentPic)
+    }, [currentPic])
     return (
         <div className={cn(
             "w-full h-full",
@@ -18,15 +20,18 @@ export default function PictureList (props:IProps) {
                     "flex justify-center flex-col items-center gap-y-[8px]",
                 )}>
                     {datalist.map((item, index) => (
-                        <div className={cn(
-                            "picItem",
+                        <div
+                          key={item.id}
+                          className={cn(
+                            "picItem border-solid ",
                             "w-full h-[200px]",
                             "flex justify-center flex-col items-center",
-                            "border-solid border-[1px] border-borderFirstColor",
-                            "hover:cursor-pointer"
+                            "hover:cursor-pointer",
+                            currentPic && currentPic.id === item.id? 'rounded-md border-[3px] border-[red]':'  border-[1px] border-borderFirstColor'
 
                         )}
                         onClick={() => {
+                            console.log('shezhi---item', item)
                             setcurrentPic(item)
                         }}
                         >
