@@ -7,7 +7,7 @@ interface ColorContext {
 
 export const ColorContext = createContext({} as ColorContext);
 export default function ColorProvider(props: any) {
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState("#00ff1e");
 
   useEffect(
     () => {

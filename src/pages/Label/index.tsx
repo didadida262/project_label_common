@@ -175,7 +175,7 @@ const LabelComponent = () => {
           "border-solid border-[1px] border-borderFirstColor",
           "w-[180px] h-full rounded-[4px] overflow-y-scroll"
         )}>
-          <PathItemsList data={categories} />
+          <PathItemsList categories={categories} />
         </div>
       </div>
 

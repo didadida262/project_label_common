@@ -1,25 +1,20 @@
-/*
- * @Description: 
- * @Author: didadida262
- * @Date: 2024-03-19 12:36:19
- * @LastEditors: didadida262
- * @LastEditTime: 2024-11-13 10:18:55
- */
 import React, { useEffect } from "react";
-
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-
 import "./index.scss";
 
-const PathItemsList = (props: any) => {
-  const { data } = props;
+interface IProps {
+  categories: any
+}
+
+const PathItemsList = (props: IProps) => {
+  const { categories } = props;
   const handleClickPathItem = item => {
     item.path.selected = !item.path.selected;
   };
-  useEffect(() => {}, [data]);
+  useEffect(() => {}, [categories]);
   return (
-    <div className="PathItemsList pd5">
-      {data.map((item, index) => {
+    <div className="PathItemsList">
+      {categories.map((item, index) => {
         return (
           <div className="w-full mb-[5px] rounded-[0px]" key={index}>
             <ButtonCommon
