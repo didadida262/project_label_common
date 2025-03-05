@@ -11,14 +11,14 @@ import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 
 import "./index.scss";
 
-const PathItemComponent = (props: any) => {
+const PathItemsList = (props: any) => {
   const { data } = props;
   const handleClickPathItem = item => {
     item.path.selected = !item.path.selected;
   };
   useEffect(() => {}, [data]);
   return (
-    <div className="PathItemComponent pd5">
+    <div className="PathItemsList pd5">
       {data.map((item, index) => {
         return (
           <div className="w-full mb-[5px] rounded-[0px]" key={index}>
@@ -36,4 +36,4 @@ const PathItemComponent = (props: any) => {
     </div>
   );
 };
-export default PathItemComponent;
+export default PathItemsList;

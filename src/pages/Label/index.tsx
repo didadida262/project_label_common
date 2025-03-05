@@ -12,11 +12,11 @@ import Brush from "@/pages/Label/Tool/Brush";
 import BrushV2 from "@/pages/Label/Tool/BrushV2";
 import pattern from "@/styles/pattern";
 import Pencil from "@/pages/Label/Tool/Pencil";
-import PictureList from './Content/PictureList'
+import PictureList from './Content/PictureList/PictureList'
 
 import CenterComponent from "./Center";
-import DrawComponent from "./Draw";
-import PathItem from "./PathItem";
+import DrawComponent from "./Content/Draw";
+import PathItemsList from "./Content/PathItemsList";
 import Spray from "./Spray";
 // import ToolsComponent from './Tools'
 import ToolsContainer from './Tool/ToolsContainer'
@@ -105,6 +105,9 @@ const LabelComponent = () => {
       getData()
 
   }, [])
+  useEffect(() => {
+    setcategories([])
+  }, [currentPic])
   return (
     <div
       className={cn(
@@ -172,7 +175,7 @@ const LabelComponent = () => {
           "border-solid border-[1px] border-borderFirstColor",
           "w-[180px] h-full rounded-[4px] overflow-y-scroll"
         )}>
-          <PathItem data={categories} />
+          <PathItemsList data={categories} />
         </div>
       </div>
 
