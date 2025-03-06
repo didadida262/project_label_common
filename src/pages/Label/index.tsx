@@ -1,7 +1,7 @@
 import { message } from "antd";
 import cn from "classnames";
 import paper from "paper";
-import React, {  useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
@@ -10,6 +10,8 @@ import BrushV2 from "@/pages/Label/Tool/BrushV2";
 import pattern from "@/styles/pattern";
 import Pencil from "@/pages/Label/Tool/Pencil";
 import PictureList from './Content/PictureList/PictureList'
+import { getRandomColor } from "@/utils/common_weapons";
+
 
 import CenterComponent from "./Center";
 import DrawComponent from "./Content/Draw";
@@ -19,7 +21,8 @@ import Spray from "./Spray";
 import ToolsContainer from './Tool/ToolsContainer'
 
 import CategoriesContainer from '@/pages/Label/Content/Categories'
-import {MockPicData,  MockCategories } from '@/mock/label'
+import { MockPicData, MockCategories } from '@/mock/label'
+import { color } from "framer-motion";
 
 
 const LabelComponent = () => {
@@ -39,9 +42,10 @@ const LabelComponent = () => {
     const name = uuidv4();
     const id = currentCategory.data.length
     const newPath = {
-      key: id,
+      id: id,
       name: name,
-      path: currentPath
+      path: currentPath,
+      color: getRandomColor()
     };
     console.log("新增数据>>>", newPath);
     // setcurrentCategory(
@@ -56,27 +60,23 @@ const LabelComponent = () => {
   useEffect(
     () => {
       handleNewPath()
-
     },
     [currentPath]
   );
   const submitPath = data => {
     setcurrentPath(data);
   };
-  const [datalist,setdatalist] = useState() as any
-  const getData = () =>{
-      setdatalist(MockPicData)
-      setcurrentPic(MockPicData[0])
-      setcategories(MockCategories)
-      setcurrentCategory(MockCategories[0])
+  const [datalist, setdatalist] = useState() as any
+  const getData = () => {
+    setdatalist(MockPicData)
+    setcurrentPic(MockPicData[0])
+    setcategories(MockCategories)
+    setcurrentCategory(MockCategories[0])
   }
   useEffect(() => {
-      getData()
+    getData()
 
   }, [])
-  useEffect(() => {
-    // setcategories([])
-  }, [currentPic])
   return (
     <div
       className={cn(
@@ -99,16 +99,16 @@ const LabelComponent = () => {
             "overflow-y-scroll"
           )
         }>
-          <PictureList datalist={datalist} setcurrentPic={setcurrentPic} currentPic={currentPic}/>
+          <PictureList datalist={datalist} setcurrentPic={setcurrentPic} currentPic={currentPic} />
         </div>
         <div className={cn("h-full max-w-[calc(100%_-_490px)] rounded-[4px] border-[1px] border-solid border-borderSecondColor")}>
-          <DrawComponent activeTool={activeTool} currentPic={currentPic}/>
+          <DrawComponent activeTool={activeTool} currentPic={currentPic} />
         </div>
         <div className={cn(
           "border-solid border-[1px] border-borderFirstColor",
           "w-[180px] h-full rounded-[4px]"
         )}>
-          <CategoriesContainer categories={categories} currentCategory={currentCategory} setcurrentCategory={setcurrentCategory}/>
+          <CategoriesContainer categories={categories} currentCategory={currentCategory} setcurrentCategory={setcurrentCategory} />
         </div>
       </div>
 

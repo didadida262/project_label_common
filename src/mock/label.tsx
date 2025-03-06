@@ -2,7 +2,6 @@ import testimg1 from '@/assets/images/common/test.jpg'
 import testimg2 from '@/assets/images/common/test2.jpg'
 import testimg3 from '@/assets/images/common/test3.jpg'
 import testimg4 from '@/assets/images/common/test4.jpg'
-import { getRandomColor } from "@/utils/common_weapons";
 
 
 export const MockCategories = [
@@ -11,17 +10,14 @@ export const MockCategories = [
         name: 'cat',
         data: [
             {
-                id:1,
-                color: getRandomColor()
+                id: 1,
             },
             {
-                id:2,
-                color: getRandomColor()
+                id: 2,
 
             },
             {
-                id:3,
-                color: getRandomColor()
+                id: 3,
 
             }
         ]
@@ -41,26 +37,26 @@ export const MockCategories = [
 ]
 
 
-export const MockPicData =  [
-          {
-              id: 0,
-              src: testimg1
-          },
-          {
-              id: 1,
-              src: testimg2 
-          },
-          {
-              id: 2,
-              src: testimg3
-          },
-          {
-              id: 3,
-              src: testimg4
-          },
-          {
-              id: 4,
-              src: testimg4
-          }
+export const MockPicData = [
+    {
+        id: 0,
+        src: testimg1
+    },
+    {
+        id: 1,
+        src: testimg2
+    },
+    {
+        id: 2,
+        src: testimg3
+    },
+    {
+        id: 3,
+        src: testimg4
+    },
+    {
+        id: 4,
+        src: testimg4
+    }
 
-      ]
+]

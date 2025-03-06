@@ -27,7 +27,13 @@ export default function CategoriesContainer(props: IProps) {
     )}>
       {categories && categories.length && categories.map((category, index) => {
         return (
-          <CateItem category={category} currentCategory={currentCategory} setcurrentCategory={setcurrentCategory} />
+          <div
+            key={category.id}
+            className={cn(
+              "w-full",
+            )}>
+            <CateItem category={category} currentCategory={currentCategory} setcurrentCategory={setcurrentCategory} />
+          </div>
         );
       })}
     </div>
