@@ -32,6 +32,12 @@ module.exports = {
       textSixSize: '12px',
     },
     extend: {
+      // animation: {
+      //   'duration-100': '100ms',
+      //   'duration-200': '200ms',
+      //   'duration-300': '300ms',
+      //   // 更多持续时间...
+      // },
       fontFamily: {
         IBMPlexSans: ['Segoe UI'],
         Poppins: ['Poppins'],

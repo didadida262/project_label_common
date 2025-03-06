@@ -17,32 +17,46 @@ import PathItemsList from "./Content/Categories/PathItemsList";
 import Spray from "./Spray";
 // import ToolsComponent from './Tools'
 import ToolsContainer from './Tool/ToolsContainer'
-import testimg1 from '@/assets/images/common/test.jpg'
-import testimg2 from '@/assets/images/common/test2.jpg'
-import testimg3 from '@/assets/images/common/test3.jpg'
-import testimg4 from '@/assets/images/common/test4.jpg'
+
+import CategoriesContainer from '@/pages/Label/Content/Categories'
+import {MockPicData,  MockCategories } from '@/mock/label'
+
 
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("pencil");
   const [currentPic, setcurrentPic] = useState() as any;
   const [categories, setcategories] = useState([]) as any;
   const [currentPath, setcurrentPath] = useState(null) as any;
+  const [currentCategory, setcurrentCategory] = useState() as any
+
+
   const handleClickTool = tool => {
     setactiveTool(tool);
     message.success(`激活${tool}`);
   };
+  const handleNewPath = () => {
+    if (!currentPath) return;
+    const name = uuidv4();
+    const id = currentCategory.data.length
+    const newPath = {
+      key: id,
+      name: name,
+      path: currentPath
+    };
+    console.log("新增数据>>>", newPath);
+    // setcurrentCategory(
+    //   {
+    //     ...currentCategory,
+    //     data: currentCategory.data.push(newPath)
+    //   }
+    // )
+    // setcategories(prevItems => [...prevItems, newPath]);
+  }
 
   useEffect(
     () => {
-      if (!currentPath) return;
-      const ID = uuidv4();
-      const newPath = {
-        key: ID,
-        name: ID,
-        path: currentPath
-      };
-      console.log("新增数据>>>", newPath);
-      setcategories(prevItems => [...prevItems, newPath]);
+      handleNewPath()
+
     },
     [currentPath]
   );
@@ -51,39 +65,17 @@ const LabelComponent = () => {
   };
   const [datalist,setdatalist] = useState() as any
   const getData = () =>{
-
-      const mockdata = [
-          {
-              id: 0,
-              src: testimg1
-          },
-          {
-              id: 1,
-              src: testimg2 
-          },
-          {
-              id: 2,
-              src: testimg3
-          },
-          {
-              id: 3,
-              src: testimg4
-          },
-          {
-              id: 4,
-              src: testimg4
-          }
-
-      ]
-      setdatalist(mockdata)
-      setcurrentPic(mockdata[0])
+      setdatalist(MockPicData)
+      setcurrentPic(MockPicData[0])
+      setcategories(MockCategories)
+      setcurrentCategory(MockCategories[0])
   }
   useEffect(() => {
       getData()
 
   }, [])
   useEffect(() => {
-    setcategories([])
+    // setcategories([])
   }, [currentPic])
   return (
     <div
@@ -114,9 +106,9 @@ const LabelComponent = () => {
         </div>
         <div className={cn(
           "border-solid border-[1px] border-borderFirstColor",
-          "w-[180px] h-full rounded-[4px] overflow-y-scroll"
+          "w-[180px] h-full rounded-[4px]"
         )}>
-          <PathItemsList categories={categories} />
+          <CategoriesContainer categories={categories} currentCategory={currentCategory} setcurrentCategory={setcurrentCategory}/>
         </div>
       </div>
 
